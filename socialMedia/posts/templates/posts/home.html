@@ -13,7 +13,16 @@
         {% for post in posts %}
         <div class="card mb-3">
             <div class="card-body">
-                <h5 class="card-title">{{ post.user.username }}</h5>
+                <div class="d-flex align-items-center mb-3">
+                    {% if post.author.profile.image %}
+                    <img src="{{ post.author.profile.image.url }}" class="rounded-circle me-2" alt="Profile picture" style="width: 40px; height: 40px; object-fit: cover;">
+                    {% endif %}
+                    {% if post.author == user %}
+                    <h5 class="card-title mb-0"><a href="{% url 'profile' %}">{{ post.author.username }}</a></h5>
+                    {% else %}
+                    <h5 class="card-title mb-0"><a href="{% url 'public_profile' post.author.username %}">{{ post.author.username }}</a></h5>
+                    {% endif %}
+                </div>
                 <h6 class="card-subtitle mb-2 text-muted">{{ post.created_at|date:"F d, Y" }}</h6>
                 <p class="card-text">{{ post.content }}</p>
                 {% if post.image %}

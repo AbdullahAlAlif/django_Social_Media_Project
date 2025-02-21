@@ -49,6 +49,13 @@
               </li>
             {% endif %}
           </ul>
+          
+          <!-- Add Search Form -->
+          <form class="d-flex me-3" action="{% url 'search_users' %}" method="GET">
+              <input class="form-control me-2" type="search" name="query" placeholder="Search users..." aria-label="Search">
+              <button class="btn btn-outline-light" type="submit">Search</button>
+          </form>
+
           <ul class="navbar-nav">
             {% if user.is_authenticated %}
               <li class="nav-item">

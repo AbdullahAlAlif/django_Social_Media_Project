@@ -17,12 +17,20 @@
             <img src="{{ post.image.url }}" class="img-fluid mb-3" alt="Post image">
             {% endif %}
 
-            <!-- Post Stats -->
-            <div class="d-flex align-items-center mt-3 text-muted">
-                <div class="me-3">
-                    <i class="fas fa-heart"></i> {{ post.likes.count }} likes
-                </div>
-                <div>
+            <!-- Post Stats and Like Button -->
+            <div class="d-flex align-items-center mt-3">
+                {% if user.is_authenticated %}
+                    <button class="btn {% if user in post.likes.all %}btn-danger{% else %}btn-outline-danger{% endif %} me-2 like-btn" 
+                            data-post-id="{{ post.id }}">
+                        <i class="fas fa-heart"></i> 
+                        <span class="like-count">{{ post.likes.count }}</span>
+                    </button>
+                {% else %}
+                    <div class="text-muted me-3">
+                        <i class="fas fa-heart"></i> {{ post.likes.count }} likes
+                    </div>
+                {% endif %}
+                <div class="text-muted">
                     <i class="fas fa-comment"></i> {{ post.comments.count }} comments
                 </div>
             </div>
@@ -48,7 +56,7 @@
                 <button type="submit" class="btn btn-primary mt-2">Add Comment</button>
             </form>
             {% else %}
-            <p class="text-muted mb-4">Please <a href="{% url 'login' %}">login</a> to add a comment.</p>
+            <p class="text-muted mb-4">Please <a href="{% url 'login' %}">login</a> to add a comment or like this post.</p>
             {% endif %}
 
             {% for comment in post.comments.all %}
@@ -73,4 +81,33 @@
 
 <!-- Add Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<!-- Add jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Like functionality script -->
+<script>
+$(document).ready(function() {
+    $('.like-btn').click(function() {
+        var button = $(this);
+        var postId = button.data('post-id');
+        
+        $.ajax({
+            url: `/post/${postId}/like/`,
+            type: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                if (response.liked) {
+                    button.removeClass('btn-outline-danger').addClass('btn-danger');
+                } else {
+                    button.removeClass('btn-danger').addClass('btn-outline-danger');
+                }
+                button.find('.like-count').text(response.total_likes);
+            }
+        });
+    });
+});
+</script>
 {% endblock %} 
