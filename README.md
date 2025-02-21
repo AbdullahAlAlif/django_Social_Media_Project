@@ -35,7 +35,6 @@ A modern social media platform built with Django that enables users to connect, 
 - **UI Framework**: Bootstrap 5
 - **Database**: SQLite
 - **Additional**: 
-  - jQuery for AJAX
   - Crispy Forms for form rendering
   - Pillow for image processing
   - Font Awesome for icons
