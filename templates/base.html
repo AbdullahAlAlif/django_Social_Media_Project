@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,23 +9,12 @@
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Add custom CSS -->
-    <style>
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .content-wrapper {
-            flex: 1;
-        }
-        .footer {
-            margin-top: auto;
-            padding: 20px 0;
-            background-color: #f8f9fa;
-        }
-    </style>
-
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
     {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -50,11 +40,19 @@
             {% endif %}
           </ul>
           
-          <!-- Add Search Form -->
-          <form class="d-flex me-3" action="{% url 'search_users' %}" method="GET">
-              <input class="form-control me-2" type="search" name="query" placeholder="Search users..." aria-label="Search">
-              <button class="btn btn-outline-light" type="submit">Search</button>
-          </form>
+          <div class="d-flex">
+            <!-- Content Search Form -->
+            <form class="d-flex me-2" action="{% url 'search_posts' %}" method="GET">
+                <input class="form-control me-2" type="search" name="content_query" placeholder="Search posts..." aria-label="Search posts">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+            
+            <!-- User Search Form -->
+            <form class="d-flex me-3" action="{% url 'search_users' %}" method="GET">
+                <input class="form-control me-2" type="search" name="query" placeholder="Search users..." aria-label="Search users">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+          </div>
 
           <ul class="navbar-nav">
             {% if user.is_authenticated %}
@@ -112,5 +110,8 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Before closing body tag, after Bootstrap JS -->
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>

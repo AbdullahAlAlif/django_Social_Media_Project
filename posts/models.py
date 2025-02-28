@@ -10,6 +10,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
+    keywords = models.CharField(max_length=200, blank=True, help_text="Enter keywords separated by commas")
 
     class Meta:
         ordering = ['-created_at']
@@ -22,6 +23,9 @@ class Post(models.Model):
 
     def total_likes(self):
         return self.likes.count()
+
+    def get_keywords_list(self):
+        return [keyword.strip() for keyword in self.keywords.split(',') if keyword.strip()]
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')

@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.http import HttpResponseForbidden, JsonResponse
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
+from django.db.models import Q
 
 class HomeView(ListView):
     model = Post
@@ -97,4 +98,20 @@ def like_post(request, pk):
     return JsonResponse({
         'liked': liked,
         'total_likes': post.total_likes()
+    })
+
+def search_posts(request):
+    query = request.GET.get('content_query', '')
+    if query:
+        # Search in content and keywords
+        posts = Post.objects.filter(
+            Q(content__icontains=query) |
+            Q(keywords__icontains=query)
+        ).distinct().order_by('-created_at')
+    else:
+        posts = Post.objects.none()
+    
+    return render(request, 'posts/search_posts.html', {
+        'posts': posts,
+        'query': query
     })

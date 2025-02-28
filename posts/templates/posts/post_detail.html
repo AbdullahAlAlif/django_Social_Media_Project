@@ -13,6 +13,14 @@
             
             <p class="card-text">{{ post.content }}</p>
             
+            {% if post.keywords %}
+            <div class="mb-3">
+                {% for keyword in post.get_keywords_list %}
+                <span class="badge bg-primary me-1">{{ keyword }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
             {% if post.image %}
             <img src="{{ post.image.url }}" class="img-fluid mb-3" alt="Post image">
             {% endif %}

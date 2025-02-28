@@ -1,0 +1,181 @@
+/* Modern Variables */
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #f64f59;
+    --background-light: #f8f9fa;
+    --text-dark: #2c3e50;
+    --text-light: #95a5a6;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --navbar-height: 56px;
+    --footer-height: 80px;
+}
+
+/* Modern Body Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    padding-top: var(--navbar-height);
+    padding-bottom: var(--footer-height);
+    position: relative;
+}
+
+/* Navbar Styling */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    height: var(--navbar-height);
+    box-shadow: var(--shadow);
+    background: linear-gradient(135deg, #4a90e2, #5c6bc0);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+/* Content Wrapper */
+.content-wrapper {
+    min-height: calc(100vh - var(--navbar-height) - var(--footer-height));
+    padding: 20px 0;
+}
+
+/* Card Animations and Styling */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    background: white;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styling */
+.btn {
+    border-radius: 25px;
+    padding: 8px 20px;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4a90e2, #5c6bc0);
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+}
+
+/* Profile Image Styling */
+.profile-image img {
+    border: 3px solid white;
+    box-shadow: var(--shadow);
+}
+
+/* Like Button Animation */
+.like-btn {
+    transition: var(--transition);
+}
+
+.like-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Comment Section Styling */
+.comment {
+    background-color: var(--background-light);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+/* Search Bar Styling */
+.search-form input {
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+}
+
+.search-form button {
+    border-radius: 20px;
+}
+
+/* Footer Styling */
+.footer {
+    
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    height: var(--footer-height);
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    padding: 20px 0;
+    z-index: 1020;
+}
+
+
+/* Loading Animation */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Toast Notifications */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+/* Make sure content doesn't get hidden */
+.container {
+    margin-bottom: var(--footer-height);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    :root {
+        --navbar-height: 56px;
+        --footer-height: 120px;
+    }
+    
+    .footer {
+        padding: 15px 0;
+    }
+    
+    .container {
+        margin-bottom: calc(var(--footer-height) + 20px);
+    }
+    
+    .card {
+        margin-bottom: 15px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+} 
